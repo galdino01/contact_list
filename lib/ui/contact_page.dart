@@ -18,6 +18,10 @@ class _ContactPageState extends State<ContactPage> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
 
+  final _nameFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _phoneFocus = FocusNode();
+
   bool _userUpdated = false;
   late Contact _updatedContact;
 
@@ -49,7 +53,28 @@ class _ContactPageState extends State<ContactPage> {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          if (_updatedContact.phone.isEmpty || _updatedContact.phone == '') {
+            FocusScope.of(context).requestFocus(_phoneFocus);
+          }
+
+          if (_updatedContact.email.isEmpty || _updatedContact.email == '') {
+            FocusScope.of(context).requestFocus(_emailFocus);
+          }
+
+          if (_updatedContact.name.isEmpty || _updatedContact.name == '') {
+            FocusScope.of(context).requestFocus(_nameFocus);
+          }
+
+          if (_updatedContact.name.isNotEmpty &&
+              _updatedContact.name != '' &&
+              _updatedContact.email.isNotEmpty &&
+              _updatedContact.email != '' &&
+              _updatedContact.phone.isNotEmpty &&
+              _updatedContact.phone != '') {
+            Navigator.pop(context, _updatedContact);
+          }
+        },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.save),
       ),
@@ -75,6 +100,7 @@ class _ContactPageState extends State<ContactPage> {
             ),
             TextField(
               controller: _nameController,
+              focusNode: _nameFocus,
               decoration: const InputDecoration(
                 labelText: 'Nome',
               ),
@@ -87,6 +113,7 @@ class _ContactPageState extends State<ContactPage> {
             ),
             TextField(
               controller: _emailController,
+              focusNode: _emailFocus,
               decoration: const InputDecoration(
                 labelText: 'Email',
               ),
@@ -98,6 +125,7 @@ class _ContactPageState extends State<ContactPage> {
             ),
             TextField(
               controller: _phoneController,
+              focusNode: _phoneFocus,
               decoration: const InputDecoration(
                 labelText: 'Telefone',
               ),

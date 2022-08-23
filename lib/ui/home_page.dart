@@ -123,7 +123,9 @@ class _HomePageState extends State<HomePage> {
         await _contactRepository.saveContact(recContact);
       }
 
-      _getAllContacts();
+      setState(() {
+        _getAllContacts();
+      });
     }
   }
 
