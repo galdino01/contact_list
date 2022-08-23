@@ -95,6 +95,7 @@ class _ContactPageState extends State<ContactPage> {
                           ? FileImage(File(_updatedContact.image))
                           : const AssetImage('assets/images/user.png')
                               as ImageProvider,
+                      fit: BoxFit.cover,
                       // https://www.flaticon.com/free-icons/person // person icons // Person icons created by Ilham Fitrotul Hayat - Flaticon
                     ),
                   ),
