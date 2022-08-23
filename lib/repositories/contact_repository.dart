@@ -8,12 +8,12 @@ const String emailColumn = 'email';
 const String phoneColumn = 'phone';
 const String imageColumn = 'image';
 
-class ContactHelper {
-  static final ContactHelper _instance = ContactHelper.internal();
+class ContactRepository {
+  static final ContactRepository _instance = ContactRepository.internal();
 
-  factory ContactHelper() => _instance;
+  factory ContactRepository() => _instance;
 
-  ContactHelper.internal();
+  ContactRepository.internal();
 
   Database? _db;
 
@@ -111,6 +111,8 @@ class Contact {
   String? email;
   String? phone;
   String? image;
+
+  Contact();
 
   Contact.fromMap(Map map) {
     id = map[idColumn];
