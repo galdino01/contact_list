@@ -107,10 +107,10 @@ class ContactRepository {
 
 class Contact {
   int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? image;
+  late String name;
+  late String email;
+  late String phone;
+  late String image;
 
   Contact();
 
