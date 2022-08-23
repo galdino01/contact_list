@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../repositories/contact_repository.dart';
 
 class ContactPage extends StatefulWidget {
@@ -91,7 +91,7 @@ class _ContactPageState extends State<ContactPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: _updatedContact.image != ''
+                      image: _updatedContact.image.isNotEmpty
                           ? FileImage(File(_updatedContact.image))
                           : const AssetImage('assets/images/user.png')
                               as ImageProvider,
@@ -99,6 +99,16 @@ class _ContactPageState extends State<ContactPage> {
                     ),
                   ),
                 ),
+                onTap: () {
+                  ImagePicker()
+                      .pickImage(source: ImageSource.camera)
+                      .then((file) {
+                    if (file == null) return;
+                    setState(() {
+                      _updatedContact.image = file.path;
+                    });
+                  });
+                },
               ),
               TextField(
                 controller: _nameController,
