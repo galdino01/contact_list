@@ -19,9 +19,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    _contactRepository.getAllContacts().then((list) {
-      contacts = list;
-    });
+    _getAllContacts();
   }
 
   @override
@@ -63,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: contacts[index].image == null
+                    image: contacts[index].image != null
                         ? FileImage(File(contacts[index].image))
                         : const AssetImage('assets/images/user.png')
                             as ImageProvider,
@@ -108,8 +106,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _showContactPage({Contact? contact}) {
-    Navigator.push(
+  void _showContactPage({Contact? contact}) async {
+    final recContact = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ContactPage(
@@ -117,5 +115,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+
+    if (recContact != null) {
+      if (contact != null) {
+        await _contactRepository.updateContact(recContact);
+      } else {
+        await _contactRepository.saveContact(recContact);
+      }
+
+      _getAllContacts();
+    }
+  }
+
+  void _getAllContacts() {
+    _contactRepository.getAllContacts().then((list) {
+      contacts = list;
+    });
   }
 }

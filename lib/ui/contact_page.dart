@@ -64,7 +64,7 @@ class _ContactPageState extends State<ContactPage> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: _updatedContact.image.isEmpty
+                    image: _updatedContact.image != ''
                         ? FileImage(File(_updatedContact.image))
                         : const AssetImage('assets/images/user.png')
                             as ImageProvider,

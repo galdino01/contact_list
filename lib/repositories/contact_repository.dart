@@ -106,11 +106,11 @@ class ContactRepository {
 }
 
 class Contact {
-  int? id;
-  late String name;
-  late String email;
-  late String phone;
-  late String image;
+  int id = 0;
+  String name = '';
+  String email = '';
+  String phone = '';
+  String image = '';
 
   Contact();
 
@@ -130,7 +130,7 @@ class Contact {
       imageColumn: image
     };
 
-    if (id != null) {
+    if (id != 0) {
       map[idColumn] = id;
     }
 
